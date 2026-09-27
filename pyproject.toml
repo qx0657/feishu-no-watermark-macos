@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "feishu-no-watermark-macos"
+version = "0.1.0"
+description = "Version-aware research patcher for native Feishu watermark windows on macOS"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+
+[project.scripts]
+feishu-watermark-patcher = "feishu_patcher.__main__:main"
+
+[tool.setuptools]
+packages = ["feishu_patcher"]

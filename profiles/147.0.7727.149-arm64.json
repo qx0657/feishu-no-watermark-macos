@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "version": "147.0.7727.149",
+  "build": "7727.149",
+  "arch": "arm64",
+  "original_sha256": "6c5e1c37c7284087060933f3a1b2af0c33f7a3335c0e1a920499d9188316a8a9",
+  "reviewed": true,
+  "patches": [
+    {
+      "label": "WatermarkController::UpdateWatermarkView",
+      "anchor": " can_create_watermark is false!",
+      "offset": "0x46f24f8",
+      "expected": "ff0306d1",
+      "replacement": "c0035fd6"
+    },
+    {
+      "label": "WebViewWorkspace watermark state update",
+      "anchor": " close watermark_view",
+      "offset": "0x4724a48",
+      "expected": "ff4306d1",
+      "replacement": "c0035fd6"
+    },
+    {
+      "label": "WebViewWorkspace::CheckWatermark",
+      "anchor": "CheckWatermark",
+      "offset": "0x472be70",
+      "expected": "ffc305d1",
+      "replacement": "c0035fd6"
+    }
+  ]
+}
