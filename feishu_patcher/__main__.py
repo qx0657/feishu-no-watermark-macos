@@ -18,7 +18,7 @@ from .core import (
 
 
 DEFAULT_SOURCE = Path("/Applications/Lark.app")
-DEFAULT_DESTINATION = Path("/Applications/飞书无水印.app")
+DEFAULT_DESTINATION = Path("/Applications/飞书.app")
 
 
 def parser() -> argparse.ArgumentParser:

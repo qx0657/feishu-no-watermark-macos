@@ -63,8 +63,8 @@ Mach-O 的 `__cstring` 中包含上述日志字符串。扫描器执行以下步
 修改嵌套 Framework 会破坏官方签名。安装器对副本执行：
 
 ```bash
-codesign --force --deep --sign - /Applications/飞书无水印.app
-codesign --verify --deep --strict /Applications/飞书无水印.app
+codesign --force --deep --sign - /Applications/飞书.app
+codesign --verify --deep --strict /Applications/飞书.app
 ```
 
 `--sign -` 生成 ad-hoc 本机签名。官方 App 的钥匙串 ACL 不会自动信任这个新代码身份，所以 macOS 可能要求用户用登录密码授权。选择“始终允许”后，本次实测能够恢复已有飞书登录态。

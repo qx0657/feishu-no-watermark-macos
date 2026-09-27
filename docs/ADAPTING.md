@@ -65,7 +65,7 @@ python3 -m feishu_patcher verify
 
 ```bash
 swiftc tools/WatermarkWindowCheck.swift -o /tmp/WatermarkWindowCheck
-PID=$(pgrep -f '^/Applications/飞书无水印.app/Contents/MacOS/Feishu$' | head -1)
+PID=$(pgrep -f '^/Applications/飞书\.app/Contents/MacOS/Feishu$' | head -1)
 /tmp/WatermarkWindowCheck "$PID"
 ```
 
