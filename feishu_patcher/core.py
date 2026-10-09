@@ -42,7 +42,10 @@ def run(*args: str, check: bool = True, capture: bool = False) -> subprocess.Com
 
 
 def app_info(app: Path) -> dict[str, str]:
-    with (app / "Contents/Info.plist").open("rb") as stream:
+    plist = app / "Contents/Info.plist"
+    if not plist.exists():
+        plist = app / "Contents/Info.plist.source"
+    with plist.open("rb") as stream:
         info = plistlib.load(stream)
     return {
         "version": str(info.get("CFBundleShortVersionString", "")),
@@ -185,6 +188,9 @@ def install(source: Path, destination: Path, launch: bool, stop: bool) -> Path |
         print(f"previous patched app moved to: {backup}")
     try:
         run("ditto", str(source), str(destination))
+        stored_plist = destination / "Contents/Info.plist.source"
+        if stored_plist.exists():
+            stored_plist.rename(destination / "Contents/Info.plist")
         apply_profile(destination, profile)
         sign_app(destination)
     except Exception:

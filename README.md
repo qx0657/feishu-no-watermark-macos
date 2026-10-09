@@ -27,11 +27,14 @@ python3 -m feishu_patcher install --launch --stop
 
 # 检查补丁字节和签名
 python3 -m feishu_patcher verify
+
+# 让开机登录项指向补丁版，并隐藏官方升级源，避免启动台出现两个飞书
+python3 -m feishu_patcher desktop
 ```
 
 首次启动补丁版时，macOS 可能询问是否允许“飞书”访问钥匙串中的既有密钥。输入 Mac 登录密码并选择“始终允许”后，原登录状态通常可以继续使用。原因是修改后的 App 必须重新签名，本机签名与官方签名不是同一身份。
 
-日常从“应用程序”打开 **飞书.app**。它在 Finder、Dock 和菜单栏中均显示为“飞书”。官方原版仍保留在 `/Applications/Lark.app`。
+日常从“应用程序”打开 **飞书.app**。它在 Finder、Dock 和菜单栏中均显示为“飞书”。执行 `desktop` 后，开机登录项会改为 `/Applications/飞书.app`；官方原版会收纳到 `~/Library/Application Support/FeishuNoWatermark/Official/Source`，其 `Info.plist` 在保存状态下也会临时改名。该目录没有应用扩展名并被排除在 Spotlight 索引之外，因此新版 macOS“App”界面不会把升级源显示成第二个飞书；恢复升级时会自动还原完整 App 结构。
 
 ## 工作原理
 
@@ -47,14 +50,16 @@ python3 -m feishu_patcher verify
 
 ## 飞书升级后怎么办
 
-补丁版可能被客户端升级器覆盖。推荐先升级官方 `/Applications/Lark.app`，再从它重新生成补丁副本。
+补丁版可能被客户端升级器覆盖。推荐临时显示并启动官方 `/Applications/Lark.app` 完成升级，再从它重新生成补丁副本：
 
 ```bash
+python3 -m feishu_patcher prepare-update --launch
+# 在官方飞书内完成升级并退出它
 python3 -m feishu_patcher inspect
-python3 -m feishu_patcher install --launch --stop
+python3 -m feishu_patcher refresh --launch --stop
 ```
 
-如果新版已有 profile，这两条命令即可完成覆盖安装；旧补丁版会先被重命名为带时间戳的 `.backup-*.app`。
+如果新版已有 profile，`refresh` 会覆盖安装、验证签名与补丁、恢复补丁版登录项，并再次收纳官方升级源。旧补丁版备份会移到 `~/Library/Application Support/FeishuNoWatermark/Backups`，不会在启动台生成额外图标。
 
 如果提示 `no exact profile`，说明二进制已经变化。请按 [新版适配指南](docs/ADAPTING.md) 生成候选 profile、审阅反汇编，再批准并安装。扫描器以稳定的日志字符串为锚点，重新解析 ARM64 `ADR/ADRP + ADD` 引用并回溯函数序言，所以通常不需要人工从整份 280 MB 以上的 Framework 中盲找偏移。
 

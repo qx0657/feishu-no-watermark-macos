@@ -6,6 +6,8 @@
 
 ```bash
 cd /Users/glow/dev/projects/github/feishu-no-watermark-macos
+python3 -m feishu_patcher prepare-update --launch
+# 在官方飞书内完成升级并退出它
 python3 -m feishu_patcher inspect --app /Applications/Lark.app
 ```
 
@@ -57,9 +59,10 @@ python3 -m feishu_patcher approve \
 ## 5. 安装和验证
 
 ```bash
-python3 -m feishu_patcher install --launch --stop
-python3 -m feishu_patcher verify
+python3 -m feishu_patcher refresh --launch --stop
 ```
+
+`refresh` 在安装和验证后会恢复日常桌面配置：开机启动补丁版，并把官方升级源收纳到 `~/Library/Application Support/FeishuNoWatermark/Official/Source`。该目录不带应用扩展名，且不会进入 Spotlight 索引。下一次升级时再次执行 `prepare-update --launch`，它会自动将官方 App 恢复到 `/Applications/Lark.app`。
 
 登录后检查主窗口、独立聊天窗口、文档窗口和弹窗。可选的 AX 检查：
 
