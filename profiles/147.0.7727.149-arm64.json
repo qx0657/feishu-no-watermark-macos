@@ -3,27 +3,27 @@
   "version": "147.0.7727.149",
   "build": "7727.149",
   "arch": "arm64",
-  "original_sha256": "6c5e1c37c7284087060933f3a1b2af0c33f7a3335c0e1a920499d9188316a8a9",
+  "original_sha256": "9b2c081b8e3eb35364fb744342e43a9836784571153c32392143a089e7b33981",
   "reviewed": true,
   "patches": [
     {
       "label": "WatermarkController::UpdateWatermarkView",
       "anchor": " can_create_watermark is false!",
-      "offset": "0x46f24f8",
+      "offset": "0x47f50ac",
       "expected": "ff0306d1",
       "replacement": "c0035fd6"
     },
     {
       "label": "WebViewWorkspace watermark state update",
       "anchor": " close watermark_view",
-      "offset": "0x4724a48",
+      "offset": "0x4827694",
       "expected": "ff4306d1",
       "replacement": "c0035fd6"
     },
     {
       "label": "WebViewWorkspace::CheckWatermark",
       "anchor": "CheckWatermark",
-      "offset": "0x472be70",
+      "offset": "0x482eabc",
       "expected": "ffc305d1",
       "replacement": "c0035fd6"
     }
